@@ -1,0 +1,172 @@
+{% extends 'html/base.html' %}
+
+{% load static %}
+
+{% block firstSection %}
+    <div class="contain-fluid position-relative p-0 " id="weatherHome">
+
+        <div class="container-fluid bg-primary py-5 mb-5 first-section">
+            <div class="container py-5">
+                <div class="row justify-content-center py-5">
+                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                        <h1 class="display-3 text-white mb-3">Do Enjoy your Vacation</h1>
+                        <p class="fs-4 text-white mb-4">The new way to plan your next trip. Hope you enjoy your trip fulliest your heart content</p>
+                        <div class="position-relative w-75 mx-auto">
+                            <input type="text" class="form-control border-0 rounded-pill w-100 py-3 ps-o4 pe-5" placeholder="Type your location." id="searchPlaceId" style="padding-left: 20px;">
+                            <!-- button  -->
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top:7px;" onclick="placeInfoSearch()">Find</button>
+                        </div>
+
+                        <p id="locationError" style="visibility:hidden;">Please Enter a city name of Bangladesh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <!-- about section  -->
+    <h1 class="text-center">About Us</h1>
+    <section id="aboutSec">
+        <div id="aboutBanner">
+            <img src="/media/files/trips.svg" alt="">
+        </div>
+        <div id="aboutContent">
+            <p>
+                TourPlanner is a comprehensive website designed to assist users in planning their tours effortlessly. With TourPlanner, users can access  <a href="#weatherHome">detailed weather information for any desired location</a>, ensuring they make informed decisions based on current and forecasted weather conditions. The platform also offers convenient booking services, allowing users to <a href="">reserve hotels</a>, choose from <a href="">pre-designed travel packages</a>, or <a href="">customize</a> their own unique travel itinerary. Additionally, TourPlanner caters to the literary interests of users, providing access to a collection of <a href="">free books</a> for reading during leisure time. With its all-in-one functionality, TourPlanner simplifies the tour planning process, making it an indispensable tool for travelers seeking convenience and personalized experiences.
+            </p>
+        </div>
+    </section>
+
+    <!-- blog section  -->
+    <h1 id="blog-header">
+        <a href="{% url 'blog' %}">Recent News</a>
+    </h1>
+    <section id="blogContainer">
+        {% for post in posts %}
+            <div class="blogCard">
+                <img src="{{ post.post_image.url  }}" alt="" class="blogImg">
+                <p class="blogTag">{{ post.tag }}</p>
+                <div id="blogTitleContainer">
+                    <h2 class="bolgTitle">{{ post.title }}</h2>
+                </div>
+                <div class="contentContainer">
+                    <p class="blogContent">
+                        {{ post.content }}
+                    </p>
+                </div>
+                <div class="blog-bottomPart">
+                    <p class="blogDate"> {{ post.date_posted}} </p>
+                    <p class="blog-readMore">
+                        <a href="{% url 'blog' %}">Continue reading</a>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+
+    <!-- hotel section  -->
+    <section id="hotelHomeContainer" class="home-container">
+        <h1 class="text-center">Find Your Hotel</h1>
+
+        <div class="home-section-shadow home-hotel-content">
+
+            <form class="position-relative w-75 mx-auto" method="get" action="{% url 'searchedHotel' %}">
+                <input type="text" class="form-control border-0 rounded-pill w-100 py-3 ps-o4 pe-5" placeholder="Type your location." id="hotelLocation" style="padding-left: 20px;" name="location">
+                <!-- button  -->
+                <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top:7px;" onclick="">Find</button>
+            </form>
+            <div id="hotel-content">
+                <div id="hotelContentLeft">
+                    <img src="/media/files/hotelBanner.jpg" alt="">
+                </div>
+                <div id="hotelContentRight">
+                    <p>
+                        TourPlanner is a comprehensive website that allows users to effortlessly plan their tours and make hotel bookings. With TourPlanner, users can explore various destinations, access detailed weather information, and conveniently book accommodations to suit their preferences. Whether it's a leisurely vacation or a business trip, TourPlanner offers a seamless hotel booking experience, ensuring users find the perfect place to stay during their travels.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+         <!-- packages by ana -->
+    <div class="text-center section-title">
+        <h1 class="mb-1 section-title">Awsome Package</h1>
+    </div>
+    <section id="packageSection" class="home-container home-section-shadow">
+        <div class="container-xxl  py-5">
+            <div class="container">
+                <div class="row g-4 justify-content-center">
+
+                    <form class="col-lg-4 col-md-6" action="pages/packageDetail.php" method="POST">
+                        <input type="hidden" name='packageID' value="" class="hidden">
+
+                        <div class="package-item">
+                            <div class="overflow-hidden">
+                                <img src="/media/package_images/bandarban.jpg" alt="" class="img-fluid packageCardImage">
+                            </div>
+                            <div class="d-flex border-bottom packageCardIcon">
+                                <small class="flex-fill text-center border-end py-2">
+                                    <i class="fa-solid fa-location-dot locationIcon2"></i>
+                                    Cox Bazar
+                                </small>
+
+                                <small class="flex-fill text-center border-end py-2">
+                                    <i class="fa-solid fa-calendar-days locationIcon2"></i>
+                                    3 day(s)</small>
+
+                                <small class="flex-fill text-center border-end py-2">
+                                    <i class="fa-solid fa-person-walking-luggage locationIcon2"></i> 2 person(s)
+                                </small>
+                            </div>
+
+                            <div class="text-center p-4">
+                                <h3 class="mb-0">$ 200.00</h3>
+                                <div class="mb-3 ">
+                                    <i class="fa-solid fa-star starIcon"></i>
+                                    <i class="fa-solid fa-star starIcon"></i>
+                                    <i class="fa-solid fa-star starIcon"></i>
+                                    <i class="fa-solid fa-star starIcon"></i>
+                                </div>
+
+                                <p>Package details Lorem ipsum dolor sit amet consectetur.</p>
+                                <div class="d-flex justify-content-center mb-2">
+                                    <button type="submit" class="btn btn-sm btn-primary px-3 packageBtn"
+                                        style="border-radius:  30px 0 0 30px ;">Read More</button>
+                                    <button type="submit" formaction="about.html"
+                                        class="btn btn-sm btn-primary px-3 packageBtn"
+                                        style="border-radius: 0 30px 30px 0 ;">Book Now</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!-- js link  -->
+{% block bodyLast %}
+    <script src="{% static 'js/home.js' %}"></script>
+    <script>
+        var weatherInfoUrl = "{% url 'weatherInfo' %}";
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        $( function() {
+          $( "#hotelLocation" ).autocomplete({
+            source: "{% url 'autoCompleteHotelSearch' %}"
+          });
+        } );
+    </script>
+{% endblock %}
